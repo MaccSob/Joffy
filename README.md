@@ -4,18 +4,29 @@ Real-time direct messaging app built with React, Express, Prisma, PostgreSQL and
 
 ## Stack
 
-| | |
-|---|---|
-| Frontend | Vite + React + TypeScript |
-| Backend | Express + TypeScript |
-| Database | PostgreSQL via Prisma |
-| Real-time | Socket.io |
-| Auth | JWT via httpOnly cookies |
+|           |                           |
+| --------- | ------------------------- |
+| Frontend  | Vite + React + TypeScript |
+| Backend   | Express + TypeScript      |
+| Database  | PostgreSQL via Prisma     |
+| Real-time | Socket.io                 |
+| Auth      | JWT via httpOnly cookies  |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[React + Vite Client] <-->|Socket.io| B[Express Server]
+    A -->|REST: auth, conversations| B
+    B -->|JWT in httpOnly cookie| A
+    B -->|Prisma ORM| C[(PostgreSQL)]
+```
 
 ## Getting started
 
 **Backend**
-```bash
+
+```
 cd backend
 npm install
 # create .env with DATABASE_URL, JWT_SECRET, CLIENT_URL
@@ -24,7 +35,8 @@ npx ts-node-dev --respawn server.ts
 ```
 
 **Frontend**
-```bash
+
+```
 cd frontend
 npm install
 # create .env with VITE_API_URL=http://localhost:4000
@@ -39,4 +51,5 @@ npm run dev
 - Conversation list with last message preview
 
 ## License
+
 MIT
